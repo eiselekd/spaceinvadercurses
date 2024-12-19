@@ -17,7 +17,7 @@ game::game() {
     noecho();
     mvprintw(0, 0, "Press 'q' to quit");
     refresh();
-    win = newwin(32, 64, 1, 0);
+    win = newwin(32, 64, 1, 1);
     wtimeout(win, FPS_PERIOD);
     box(win, 0, 0);
     wrefresh(win);
@@ -56,7 +56,20 @@ void game::loop() {
     endwin();
 }
 
-void game::paint(int x, int y, char c) {
-    char b[2] = { c, 0};
-    mvwprintw(win, x, y, b);
+void game::paint(int x, int y, char * c) {
+    // char b[2] = { c, 0};
+    mvwprintw(win, x, y, "%s", c);
+}
+
+void game::paint_char(int x, int y, char c) {
+    // char b[2] = { c, 0};
+    mvwprintw(win, x, y, "%c", c);
+}
+
+void game::shoot(const int x, char c){
+    int pos = x;
+    int count = 28;
+    while (count > 0){
+        paint_char(count--,pos+2,c);
+    }
 }
